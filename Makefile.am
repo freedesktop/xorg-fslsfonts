@@ -21,8 +21,8 @@
 
 bin_PROGRAMS = fslsfonts
 
-fslsfonts_CFLAGS = $(DEP_CFLAGS)
-fslsfonts_LDADD = $(DEP_LIBS)
+fslsfonts_CFLAGS = $(FSLSFONTS_CFLAGS)
+fslsfonts_LDADD = $(FSLSFONTS_LIBS)
 
 fslsfonts_SOURCES =	\
         fslsfonts.c
