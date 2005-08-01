@@ -27,6 +27,6 @@ fslsfonts_LDADD = $(FSLSFONTS_LIBS)
 fslsfonts_SOURCES =	\
         fslsfonts.c
 
-dist_man_MANS = \
+dist_man1_MANS = \
         fslsfonts.man
 
