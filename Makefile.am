@@ -21,7 +21,7 @@
 
 bin_PROGRAMS = fslsfonts
 
-fslsfonts_CFLAGS = $(FSLSFONTS_CFLAGS)
+AM_CFLAGS = $(FSLSFONTS_CFLAGS)
 fslsfonts_LDADD = $(FSLSFONTS_LIBS)
 
 fslsfonts_SOURCES =	\
