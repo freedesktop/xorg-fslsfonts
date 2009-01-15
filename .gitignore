@@ -18,3 +18,7 @@ install-sh
 missing
 stamp-h1
 *~
+*.o
+fslsfonts-*.tar.*
+ChangeLog
+tags

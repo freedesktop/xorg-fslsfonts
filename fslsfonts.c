@@ -54,20 +54,20 @@ in this Software without prior written authorization from The Open Group.
 #define N_START 1000		/* Maximum # of fonts to start with */
 #endif
 
-int         max_output_line_width = 79;
-int         output_line_padding = 3;
-int         columns = 0;
+static int max_output_line_width = 79;
+static int output_line_padding = 3;
+static int columns = 0;
 
 #define L_SHORT 0
 #define L_MEDIUM 1
 #define L_LONG 2
 #define L_VERYLONG 3
 
-Bool        sort_output = True;
-int         long_list = L_SHORT;
-int         nnames = N_START;
-int         font_cnt;
-int         min_max;
+static Bool sort_output = True;
+static int  long_list = L_SHORT;
+static int  nnames = N_START;
+static int  font_cnt;
+static int  min_max;
 typedef struct {
     char       *name;
     FSXFontInfoHeader *info;
@@ -75,11 +75,11 @@ typedef struct {
     FSPropOffset *po;
     unsigned char *pd;
 }           FontList;
-FontList   *font_list;
+static FontList *font_list;
 
-FSServer   *svr;
+static FSServer *svr;
 
-char       *program_name;
+static char *program_name;
 
 static void usage ( void );
 static void get_list ( char *pattern );
