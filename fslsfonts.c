@@ -92,26 +92,15 @@ static void
 usage(void)
 {
     fprintf(stderr, "usage:  %s [-options] [-fn pattern]\n", program_name);
-    fprintf(stderr, "where options include:\n");
-
-    fprintf(stderr,
-	    "    -l[l[l]]                 give long info about each font\n");
-    fprintf(stderr,
-	 "    -m                       give character min and max bounds\n");
-
-    fprintf(stderr,
-	    "    -C                       force columns\n");
-    fprintf(stderr,
-	    "    -1                       force single column\n");
-    fprintf(stderr,
-	    "    -u                       keep output unsorted\n");
-    fprintf(stderr,
-	"    -w width                 maximum width for multiple columns\n");
-    fprintf(stderr,
-	 "    -n columns               number of columns if multi column\n");
-    fprintf(stderr,
-	    "    -server servername       font server to contact\n");
-    fprintf(stderr,
+    fprintf(stderr, "%s", "where options include:\n"
+	    "    -l[l[l]]                 give long info about each font\n"
+	    "    -m                       give character min and max bounds\n"
+	    "    -C                       force columns\n"
+	    "    -1                       force single column\n"
+	    "    -u                       keep output unsorted\n"
+	    "    -w width                 maximum width for multiple columns\n"
+	    "    -n columns               number of columns if multi column\n"
+	    "    -server servername       font server to contact\n"
 	    "\n");
     exit(1);
 }
