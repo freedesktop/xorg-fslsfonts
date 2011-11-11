@@ -265,8 +265,8 @@ get_list(const char *pattern)
 static int 
 compare(const void *f1, const void *f2)
 {
-    char       *p1 = ((FontList *)f1)->name,
-               *p2 = ((FontList *)f2)->name;
+    const char *p1 = ((const FontList *)f1)->name,
+               *p2 = ((const FontList *)f2)->name;
 
     while (*p1 && *p2 && *p1 == *p2)
 	p1++, p2++;
