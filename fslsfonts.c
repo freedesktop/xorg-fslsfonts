@@ -80,7 +80,7 @@ static FSServer *svr;
 static char *program_name;
 
 static void usage ( void );
-static void get_list ( char *pattern );
+static void get_list ( const char *pattern );
 static int compare ( const void *f1, const void *f2 );
 static void show_fonts ( void );
 static void print_font_header ( void );
@@ -208,7 +208,7 @@ next:	;
 }
 
 static void
-get_list(char *pattern)
+get_list(const char *pattern)
 {
     int         available = nnames + 1,
                 i;
@@ -387,7 +387,7 @@ print_font_header(void)
 static void
 show_font_header(FontList *list)
 {
-    char       *string;
+    const char        *string;
     FSXFontInfoHeader *pfh;
 
     pfh = list->info;
