@@ -79,7 +79,7 @@ static FSServer *svr;
 
 static char *program_name;
 
-static void usage ( void );
+static void usage ( void ) _X_NORETURN;
 static void get_list ( const char *pattern );
 static int compare ( const void *f1, const void *f2 );
 static void show_fonts ( void );

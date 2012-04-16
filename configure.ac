@@ -36,7 +36,7 @@ XORG_DEFAULT_OPTIONS
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for pkg-config packages
-PKG_CHECK_MODULES(FSLSFONTS, xproto libfs)
+PKG_CHECK_MODULES(FSLSFONTS, [xproto >= 7.0.17 libfs])
 
 AC_CONFIG_FILES([
 	Makefile
