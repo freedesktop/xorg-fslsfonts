@@ -83,7 +83,7 @@ static FSServer *svr;
 
 static char *program_name;
 
-static void usage ( void ) _X_NORETURN;
+static void usage (const char *msg) _X_NORETURN _X_COLD;
 static void get_list ( const char *pattern );
 static int compare ( const void *f1, const void *f2 );
 static void show_fonts ( void );
@@ -92,9 +92,20 @@ static void show_font_header ( FontList *list );
 static void copy_number ( char **pp1, char **pp2, int n1, int n2 );
 static void show_font_props ( FontList *list );
 
-static void
-usage(void)
+static void _X_NORETURN _X_COLD
+missing_arg (const char *option)
 {
+    char msg[32];
+
+    snprintf(msg, sizeof(msg), "%s requires an argument", option);
+    usage(msg);
+}
+
+static void
+usage(const char *msg)
+{
+    if (msg)
+	fprintf(stderr, "%s: %s\n", program_name, msg);
     fprintf(stderr, "usage:  %s [-options] [-fn pattern]\n", program_name);
     fprintf(stderr, "%s", "where options include:\n"
 	    "    -l[l[l]]                 give long info about each font\n"
@@ -122,7 +133,7 @@ main(int argc, char *argv[])
     for (i = 1; i < argc; i++) {
 	if (strncmp(argv[i], "-s", 2) == 0) {
 	    if (++i >= argc)
-		usage();
+		missing_arg("-server");
 	    servername = argv[i];
 	}
 	else if (strcmp(argv[i], "-version") == 0) {
@@ -133,7 +144,7 @@ main(int argc, char *argv[])
 
     if ((svr = FSOpenServer(servername)) == NULL) {
 	if (FSServerName(servername) == NULL) {
-	    fprintf(stderr, "%s: no font server defined\n", program_name);
+	    usage("no font server defined");
 	    exit(0);
 	}
 	fprintf(stderr, "%s:  unable to open server \"%s\"\n",
@@ -144,7 +155,7 @@ main(int argc, char *argv[])
     for (argv++, argc--; argc; argv++, argc--) {
 	if (argv[0][0] == '-') {
 	    if (argcnt > 0)
-		usage();
+		usage(NULL);
 	    for (i = 1; argv[0][i]; i++)
 		switch (argv[0][i]) {
 		case 'l':
@@ -161,20 +172,20 @@ main(int argc, char *argv[])
 		    break;
 		case 'f':
 		    if (--argc <= 0)
-			usage();
+			missing_arg("-fn");
 		    argcnt++;
 		    argv++;
 		    get_list(argv[0]);
 		    goto next;
 		case 'w':
 		    if (--argc <= 0)
-			usage();
+			missing_arg("-w");
 		    argv++;
 		    max_output_line_width = atoi(argv[0]);
 		    goto next;
 		case 'n':
 		    if (--argc <= 0)
-			usage();
+			missing_arg("-n");
 		    argv++;
 		    columns = atoi(argv[0]);
 		    goto next;
@@ -183,15 +194,17 @@ main(int argc, char *argv[])
 		    break;
 		case 's':	/* eat -s */
 		    if (--argc <= 0)
-			usage();
+			missing_arg("-server");
 		    argv++;
 		    goto next;
 		default:
-		    usage();
+		    fprintf(stderr, "%s: unrecognized option '%s'\n",
+			    program_name, argv[0]);
+		    usage(NULL);
 		    break;
 		}
 	    if (i == 1)
-		usage();
+		usage(NULL);
 	} else {
 	    argcnt++;
 	    get_list(argv[0]);
