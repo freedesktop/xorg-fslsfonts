@@ -43,6 +43,10 @@ in this Software without prior written authorization from The Open Group.
  * THIS SOFTWARE.
  */
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <X11/fonts/FSlib.h>
 #include <stdio.h>
 #include <X11/Xos.h>
@@ -101,6 +105,7 @@ usage(void)
 	    "    -w width                 maximum width for multiple columns\n"
 	    "    -n columns               number of columns if multi column\n"
 	    "    -server servername       font server to contact\n"
+	    "    -version                 print command version and exit\n"
 	    "\n");
     exit(1);
 }
@@ -119,6 +124,10 @@ main(int argc, char *argv[])
 	    if (++i >= argc)
 		usage();
 	    servername = argv[i];
+	}
+	else if (strcmp(argv[i], "-version") == 0) {
+	    printf("%s\n", PACKAGE_STRING);
+	    exit(0);
 	}
     }
 
