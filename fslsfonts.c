@@ -270,6 +270,11 @@ get_list(const char *pattern)
     else
 	font_list = (FontList *) malloc((unsigned)
 				  (font_cnt + available) * sizeof(FontList));
+    if (font_list == NULL) {
+        fprintf(stderr, "%s: unable to allocate %zu bytes for font list\n",
+                program_name, (font_cnt + available) * sizeof(FontList));
+        exit(-1);
+    }
     for (i = 0; i < available; i++) {
 	font_list[font_cnt].name = fonts[i];
 
