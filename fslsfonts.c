@@ -265,11 +265,11 @@ get_list(const char *pattern)
 	return;
     }
     if (font_list)
-	font_list = (FontList *) realloc(font_list,
-				  (font_cnt + available) * sizeof(FontList));
+	font_list = realloc(font_list,
+			    (font_cnt + available) * sizeof(FontList));
     else
-	font_list = (FontList *) malloc((unsigned)
-				  (font_cnt + available) * sizeof(FontList));
+	font_list = malloc((unsigned)
+			   (font_cnt + available) * sizeof(FontList));
     if (font_list == NULL) {
         fprintf(stderr, "%s: unable to allocate %zu bytes for font list\n",
                 program_name, (font_cnt + available) * sizeof(FontList));
