@@ -56,9 +56,9 @@ in this Software without prior written authorization from The Open Group.
 #define N_START 1000		/* Maximum # of fonts to start with */
 #endif
 
-static int max_output_line_width = 79;
-static int output_line_padding = 3;
-static int columns = 0;
+static unsigned int max_output_line_width = 79;
+static unsigned int output_line_padding = 3;
+static unsigned int columns = 0;
 
 #define L_SHORT 0
 #define L_MEDIUM 1
@@ -68,7 +68,7 @@ static int columns = 0;
 static Bool sort_output = True;
 static int  long_list = L_SHORT;
 static int  nnames = N_START;
-static int  font_cnt;
+static unsigned int  font_cnt;
 static int  min_max;
 typedef struct {
     char       *name;
@@ -181,13 +181,13 @@ main(int argc, char *argv[])
 		    if (--argc <= 0)
 			missing_arg("-w");
 		    argv++;
-		    max_output_line_width = atoi(argv[0]);
+		    max_output_line_width = (unsigned int) atoi(argv[0]);
 		    goto next;
 		case 'n':
 		    if (--argc <= 0)
 			missing_arg("-n");
 		    argv++;
-		    columns = atoi(argv[0]);
+		    columns = (unsigned int) atoi(argv[0]);
 		    goto next;
 		case 'u':
 		    sort_output = False;
@@ -265,14 +265,15 @@ get_list(const char *pattern)
 	return;
     }
     if (font_list)
-	font_list = realloc(font_list,
-			    (font_cnt + available) * sizeof(FontList));
+	font_list = realloc(font_list, (font_cnt + (unsigned) available)
+                            * sizeof(FontList));
     else
-	font_list = malloc((unsigned)
-			   (font_cnt + available) * sizeof(FontList));
+	font_list = malloc((font_cnt + (unsigned) available)
+                           * sizeof(FontList));
     if (font_list == NULL) {
         fprintf(stderr, "%s: unable to allocate %zu bytes for font list\n",
-                program_name, (font_cnt + available) * sizeof(FontList));
+                program_name,
+                (font_cnt + (unsigned) available) * sizeof(FontList));
         exit(-1);
     }
     for (i = 0; i < available; i++) {
@@ -303,7 +304,7 @@ compare(const void *f1, const void *f2)
 static void
 show_fonts(void)
 {
-    int         i;
+    unsigned int i;
 
     if (font_cnt == 0)
 	return;
@@ -330,14 +331,14 @@ show_fonts(void)
 	return;
     }
     if ((columns == 0 && isatty(1)) || columns > 1) {
-	int         width,
+	unsigned int width,
 	            max_width = 0,
 	            lines_per_column,
 	            j,
 	            index;
 
 	for (i = 0; i < font_cnt; i++) {
-	    width = strlen(font_list[i].name);
+	    width = (unsigned int) strlen(font_list[i].name);
 	    if (width > max_width)
 		max_width = width;
 	}
@@ -481,7 +482,7 @@ copy_number(char **pp1, char **pp2, int n1, int n2)
 
     sprintf(p1, "%d", n1);
     sprintf(p2, "%d", n2);
-    w = max(strlen(p1), strlen(p2));
+    w = (int) max(strlen(p1), strlen(p2));
     sprintf(p1, "%*d", w, n1);
     sprintf(p2, "%*d", w, n2);
     p1 += strlen(p1);
@@ -493,12 +494,12 @@ copy_number(char **pp1, char **pp2, int n1, int n2)
 static void
 show_font_props(FontList *list)
 {
-    int         i;
+    unsigned int  i;
     char        buf[1000];
     FSPropInfo *pi = list->pi;
     FSPropOffset *po = list->po;
     unsigned char *pd = list->pd;
-    int         num_props;
+    unsigned int  num_props;
 
     num_props = pi->num_offsets;
     for (i = 0; i < num_props; i++, po++) {
