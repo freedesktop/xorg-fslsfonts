@@ -145,7 +145,6 @@ main(int argc, char *argv[])
     if ((svr = FSOpenServer(servername)) == NULL) {
 	if (FSServerName(servername) == NULL) {
 	    usage("no font server defined");
-	    exit(0);
 	}
 	fprintf(stderr, "%s:  unable to open server \"%s\"\n",
 		program_name, FSServerName(servername));
@@ -201,7 +200,6 @@ main(int argc, char *argv[])
 		    fprintf(stderr, "%s: unrecognized option '%s'\n",
 			    program_name, argv[0]);
 		    usage(NULL);
-		    break;
 		}
 	    if (i == 1)
 		usage(NULL);
